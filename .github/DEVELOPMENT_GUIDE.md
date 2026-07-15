@@ -99,3 +99,42 @@ pnpm --filter @opc/mobile ios
 - `new-release.yml` / `publish-release.yml`：changeset 驱动的发版流程。
 
 > 如需使用 Expo EAS 构建，可在 `build-mobile.yml` 中替换 native 构建步骤为 `eas build --platform android --platform ios`。
+
+## 与 OPC-server 对接
+
+OPC-mobile 通过 HTTP + MQTT 与 OPC-server 通信：
+
+1. **注册/授权**：调用 `POST /api/v1/participants`，传入参与者 ID，返回 `participantId` + `token`。
+2. **MQTT 连接**：使用 `participantId` 作为用户名、`token` 作为密码连接 broker。
+3. **Topic 约定**：
+   - 上行（客户端 → server）：`opc/rooms/{roomId}/uplink`，QoS 1
+   - 下行（server → 客户端）：`opc/rooms/{roomId}/events`，QoS 1
+4. **当前 server 发布的事件**：`message.delivered`（其他事件已定义但尚未发布）。
+
+### 环境变量
+
+复制 `apps/mobile/.env.example` 为 `apps/mobile/.env` 并修改：
+
+```bash
+OPC_SERVER_BASE_URL=http://localhost:3000
+OPC_API_VERSION=v1
+OPC_MQTT_BROKER_URL=mqtt://localhost:1883
+```
+
+生产环境使用 `OPC_MQTT_BROKER_URL=mqtts://...` 并配置 TLS。
+
+### 本地验证
+
+```bash
+# 1. 启动 OPC-server（在其仓库执行）
+docker-compose up
+
+# 2. 启动 Metro
+pnpm --filter @opc/mobile start
+
+# 3. 运行 Android 或 iOS
+pnpm --filter @opc/mobile android
+pnpm --filter @opc/mobile ios
+```
+
+注册参与者后进入房间列表，选择房间即可收发实时消息。
