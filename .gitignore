@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
+
+# React Native
+*.jsbundle
+*.xcarchive
+ios/Pods/
+android/app/build/
+android/build/
+
+# Testing
+coverage/
+
+# Environment
+.env
+.env.local
+.env.development
+
+# Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Misc
+*.log
