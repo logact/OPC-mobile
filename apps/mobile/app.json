@@ -1,4 +1,31 @@
 {
-  "name": "Mobile",
-  "displayName": "Mobile"
+  "expo": {
+    "name": "OPC",
+    "slug": "opc-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "bundleIdentifier": "com.logact.utralTodo",
+      "buildNumber": "1"
+    },
+    "android": {
+      "package": "com.logact.utralTodo",
+      "versionCode": 1
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "newArchEnabled": false
+          },
+          "android": {
+            "newArchEnabled": false
+          }
+        }
+      ]
+    ]
+  }
 }

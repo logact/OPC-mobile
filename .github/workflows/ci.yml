@@ -2,11 +2,10 @@ name: CI
 
 on:
   pull_request:
-    branches: [develop, main, 'release-*']
-    paths-ignore: ['**.md']
+    branches: [main]
   push:
-    branches: [develop, main, 'release-*']
-    paths-ignore: ['**.md']
+    branches: [main]
+    tags: ['v*']
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
@@ -118,22 +117,12 @@ jobs:
     with:
       node-version: ${{ needs.vars.outputs.node-version }}
       pnpm-version: ${{ needs.vars.outputs.pnpm-version }}
-      retries: ${{ (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/release-')) && 2 || 0 }}
-
-  native-build:
-    name: Native Build
-    needs: [vars, build, checks, test]
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/release-'))
-    uses: ./.github/workflows/build-mobile.yml
-    with:
-      node-version: ${{ needs.vars.outputs.node-version }}
-      pnpm-version: ${{ needs.vars.outputs.pnpm-version }}
-      version: ${{ needs.vars.outputs.version }}
-      build-tag: ${{ needs.vars.outputs.build-tag }}
+      # main 分支 push / tag push 上测试失败自动重试 2 次，PR 上不重试
+      retries: ${{ (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')) && 2 || 0 }}
 
   done:
     name: CI Done
-    needs: [checks, test, native-build]
+    needs: [checks, test]
     if: always()
     runs-on: ubuntu-latest
     steps:
@@ -141,9 +130,6 @@ jobs:
         run: |
           check_result() {
             local name="$1" result="$2"
-            if [[ "$name" == "native-build" && "$result" == "skipped" ]]; then
-              return
-            fi
             if [[ "$result" != "success" ]]; then
               echo "$name failed: $result"
               exit 1
@@ -151,5 +137,4 @@ jobs:
           }
           check_result checks '${{ needs.checks.result }}'
           check_result test '${{ needs.test.result }}'
-          check_result native-build '${{ needs.native-build.result }}'
           echo "All required jobs passed"

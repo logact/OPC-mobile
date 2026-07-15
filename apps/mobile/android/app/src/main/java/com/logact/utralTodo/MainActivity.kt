@@ -1,4 +1,4 @@
-package com.opc.mobile
+package com.logact.utralTodo
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

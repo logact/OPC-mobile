@@ -1,4 +1,4 @@
-package com.opc.mobile
+package com.logact.utralTodo
 
 import android.app.Application
 import com.facebook.react.PackageList
