@@ -10,7 +10,8 @@
     ],
     "ios": {
       "bundleIdentifier": "com.logact.utralTodo",
-      "buildNumber": "1"
+      "buildNumber": "1",
+      "deploymentTarget": "16.4"
     },
     "android": {
       "package": "com.logact.utralTodo",
