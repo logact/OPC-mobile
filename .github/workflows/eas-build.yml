@@ -57,7 +57,16 @@ jobs:
         working-directory: apps/mobile
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          EXPO_ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          EXPO_ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          EXPO_ASC_API_KEY_PATH: /tmp/AuthKey_${{ secrets.ASC_KEY_ID }}.p8
+          EXPO_APPLE_TEAM_ID: ${{ vars.EXPO_APPLE_TEAM_ID }}
+          EXPO_APPLE_TEAM_TYPE: ${{ vars.EXPO_APPLE_TEAM_TYPE }}
+          EXPO_NO_CAPABILITY_SYNC: 1
+          ASC_KEY_P8: ${{ secrets.ASC_KEY_P8 }}
         run: |
+          echo "$ASC_KEY_P8" > "$EXPO_ASC_API_KEY_PATH"
+
           pnpm exec eas build \
             --platform ${{ github.event.inputs.platform }} \
             --profile ${{ github.event.inputs.profile }} \
