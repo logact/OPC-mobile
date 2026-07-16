@@ -1,58 +1,24 @@
-export interface MessageContent {
-  type: 'text' | 'markdown' | 'json' | 'system';
-  body: string;
-}
+import type {
+  MessageContent,
+  Message,
+  UplinkPayload,
+  ServerEvent,
+  MessageDeliveredEvent,
+  ParticipantJoinedEvent,
+  ParticipantLeftEvent,
+  RoomUpdatedEvent,
+} from '@opc/protocol';
 
-export interface UplinkPayload {
-  from: string;
-  content: MessageContent;
-  clientMessageId?: string;
-}
-
-export interface Message {
-  id: string;
-  roomId: string;
-  from: string;
-  content: MessageContent;
-  clientMessageId?: string;
-  createdAt: string;
-}
-
-export interface MessageDeliveredEvent {
-  type: 'message.delivered';
-  message: Message;
-}
-
-export interface ParticipantJoinedEvent {
-  type: 'participant.joined';
-  roomId: string;
-  participant: {
-    id: string;
-    name: string | null;
-    kind: 'human' | 'agent';
-  };
-}
-
-export interface ParticipantLeftEvent {
-  type: 'participant.left';
-  roomId: string;
-  participantId: string;
-}
-
-export interface RoomUpdatedEvent {
-  type: 'room.updated';
-  room: {
-    id: string;
-    name: string;
-    participantIds: string[];
-  };
-}
-
-export type ServerEvent =
-  | MessageDeliveredEvent
-  | ParticipantJoinedEvent
-  | ParticipantLeftEvent
-  | RoomUpdatedEvent;
+export type {
+  MessageContent,
+  Message,
+  UplinkPayload,
+  ServerEvent,
+  MessageDeliveredEvent,
+  ParticipantJoinedEvent,
+  ParticipantLeftEvent,
+  RoomUpdatedEvent,
+};
 
 export type MqttConnectionState = 'disconnected' | 'connecting' | 'connected' | 'error';
 

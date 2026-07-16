@@ -18,6 +18,12 @@
     "clean": "pnpm -r clean && rm -rf node_modules",
     "changeset": "changeset"
   },
+  "pnpm": {
+    "overrides": {
+      "@opc/core": "file:../OPC-server/packages/core",
+      "@opc/protocol": "file:../OPC-server/packages/protocol"
+    }
+  },
   "devDependencies": {
     "@changesets/cli": "^2.31.0",
     "@eslint/js": "^10.0.1",

@@ -1,7 +1,7 @@
 import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { EventEmitter } from 'events';
+import { MQTT_TOPICS } from '@opc/protocol';
 import { createOpcMqttClient } from '../client.js';
-import { MQTT_TOPICS } from '../topics.js';
 
 vi.mock('mqtt', () => ({
   default: {
@@ -135,7 +135,7 @@ describe('createOpcMqttClient', () => {
         roomId: 'room-1',
         from: 'alice',
         content: { type: 'text', body: 'hello' },
-        createdAt: '2026-07-15T00:00:00.000Z',
+        timestamp: '2026-07-15T00:00:00.000Z',
       },
     };
     mock.emit('message', MQTT_TOPICS.events('room-1'), Buffer.from(JSON.stringify(deliveredEvent)));

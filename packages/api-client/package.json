@@ -19,6 +19,7 @@
     "clean": "rm -rf dist node_modules"
   },
   "dependencies": {
+    "@opc/protocol": "^0.0.2",
     "axios": "^1.7.7"
   },
   "devDependencies": {

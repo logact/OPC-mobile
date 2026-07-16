@@ -19,7 +19,7 @@ describe('createRoomsApi', () => {
     const api = createRoomsApi(client);
     const result = await api.create('General', ['alice', 'bob']);
 
-    expect(client.post).toHaveBeenCalledWith('/rooms', {
+    expect(client.post).toHaveBeenCalledWith('/api/v1/rooms', {
       name: 'General',
       participantIds: ['alice', 'bob'],
     });
@@ -33,7 +33,7 @@ describe('createRoomsApi', () => {
     const api = createRoomsApi(client);
     const result = await api.list();
 
-    expect(client.get).toHaveBeenCalledWith('/rooms');
+    expect(client.get).toHaveBeenCalledWith('/api/v1/rooms');
     expect(result.rooms).toHaveLength(1);
   });
 
@@ -44,7 +44,7 @@ describe('createRoomsApi', () => {
     const api = createRoomsApi(client);
     const result = await api.history('room-1');
 
-    expect(client.get).toHaveBeenCalledWith('/rooms/room-1/history');
+    expect(client.get).toHaveBeenCalledWith('/api/v1/rooms/room-1/history');
     expect(result.messages).toEqual([]);
   });
 });

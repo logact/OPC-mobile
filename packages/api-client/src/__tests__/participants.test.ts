@@ -22,7 +22,7 @@ describe('createParticipantsApi', () => {
     const api = createParticipantsApi(client);
     const result = await api.register('alice', 'Alice');
 
-    expect(client.post).toHaveBeenCalledWith('/participants', { id: 'alice', name: 'Alice' });
+    expect(client.post).toHaveBeenCalledWith('/api/v1/participants', { id: 'alice', name: 'Alice' });
     expect(result).toEqual({ participantId: 'alice', token: 'secret-token' });
   });
 
@@ -30,18 +30,16 @@ describe('createParticipantsApi', () => {
     const client = createMockClient();
     const participant = {
       id: 'alice',
-      name: 'Alice',
       kind: 'human',
-      metadata: null,
-      createdAt: '2026-07-15T00:00:00.000Z',
-      updatedAt: '2026-07-15T00:00:00.000Z',
+      name: 'Alice',
+      metadata: { avatar: 'alice.png' },
     } as const;
     vi.mocked(client.get).mockResolvedValue({ participant });
 
     const api = createParticipantsApi(client);
     const result = await api.get('alice');
 
-    expect(client.get).toHaveBeenCalledWith('/participants/alice');
+    expect(client.get).toHaveBeenCalledWith('/api/v1/participants/alice');
     expect(result.participant).toEqual(participant);
   });
 });

@@ -36,7 +36,7 @@ export function ChatScreen(): React.JSX.Element {
     <View style={styles.messageItem}>
       <Text style={styles.messageFrom}>{item.from}</Text>
       <Text style={styles.messageBody}>{item.content.body}</Text>
-      <Text style={styles.messageTime}>{new Date(item.createdAt).toLocaleTimeString()}</Text>
+      <Text style={styles.messageTime}>{new Date(item.timestamp).toLocaleTimeString()}</Text>
     </View>
   );
 

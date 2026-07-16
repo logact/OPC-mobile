@@ -7,6 +7,7 @@ export default tseslint.config(
   {
     ignores: [
       'apps/mobile/**',
+      'OPC-server/**',
       '**/node_modules/**',
       '**/dist/**',
       '**/android/**',
