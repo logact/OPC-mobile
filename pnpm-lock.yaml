@@ -114,9 +114,6 @@ importers:
       '@babel/runtime':
         specifier: ^7.25.0
         version: 7.29.7
-      '@expo/metro-config':
-        specifier: ^57.0.5
-        version: 57.0.5(expo@57.0.6)(typescript@5.9.3)
       '@react-native-community/cli':
         specifier: 20.1.0
         version: 20.1.0(typescript@5.9.3)
@@ -150,6 +147,9 @@ importers:
       '@types/react-test-renderer':
         specifier: ^19.1.0
         version: 19.1.0
+      babel-preset-expo:
+        specifier: ~57.0.3
+        version: 57.0.3(@babel/core@7.29.7)(@babel/runtime@7.29.7)(expo@57.0.6)(react-refresh@0.14.2)
       eas-cli:
         specifier: ^21.0.1
         version: 21.0.1(@types/node@20.19.43)(typescript@5.9.3)

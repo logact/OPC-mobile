@@ -1,11 +1,11 @@
 const path = require('path');
-const { getDefaultConfig } = require('@expo/metro-config');
+const { getDefaultConfig } = require('expo/metro-config');
 
 /**
  * Metro configuration for pnpm monorepo, Expo Bare Workflow and MQTT Node polyfills.
  * https://docs.expo.dev/guides/customizing-metro/
  *
- * @type {import('@expo/metro-config').MetroConfig}
+ * @type {import('expo/metro-config').MetroConfig}
  */
 const config = getDefaultConfig(__dirname);
 
