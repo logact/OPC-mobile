@@ -19,7 +19,7 @@
     "clean": "rm -rf dist node_modules"
   },
   "dependencies": {
-    "@opc/protocol": "^0.0.2",
+    "@logact-pub/opc-protocol": "^0.1.0",
     "buffer": "^6.0.3",
     "events": "^3.3.0",
     "mqtt": "^5.10.1",
