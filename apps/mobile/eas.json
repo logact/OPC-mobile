@@ -17,6 +17,12 @@
     "production": {
       "android": {
         "buildType": "app-bundle"
+      },
+      "ios": {
+        "autoIncrement": {
+          "version": false,
+          "buildNumber": true
+        }
       }
     }
   },
