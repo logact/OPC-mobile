@@ -4,6 +4,10 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@opc/core': file:../OPC-server/packages/core
+  '@opc/protocol': file:../OPC-server/packages/protocol
+
 importers:
 
   .:
@@ -171,6 +175,9 @@ importers:
 
   packages/api-client:
     dependencies:
+      '@opc/protocol':
+        specifier: file:../../../OPC-server/packages/protocol
+        version: file:../OPC-server/packages/protocol
       axios:
         specifier: ^1.7.7
         version: 1.18.1
@@ -187,6 +194,9 @@ importers:
 
   packages/mqtt-client:
     dependencies:
+      '@opc/protocol':
+        specifier: file:../../../OPC-server/packages/protocol
+        version: file:../OPC-server/packages/protocol
       buffer:
         specifier: ^6.0.3
         version: 6.0.3
@@ -1639,6 +1649,12 @@ packages:
   '@oclif/plugin-autocomplete@3.2.53':
     resolution: {integrity: sha512-cGAgN9ujTDxa6C84d6XNVsmoFnDFfHwdiykAnAfym3oBLxoXBNYMZhmfnZ8KBWDy/r/DYf11BrGJwqKl2P0iSA==}
     engines: {node: '>=18.0.0'}
+
+  '@opc/core@file:../OPC-server/packages/core':
+    resolution: {directory: ../OPC-server/packages/core, type: directory}
+
+  '@opc/protocol@file:../OPC-server/packages/protocol':
+    resolution: {directory: ../OPC-server/packages/protocol, type: directory}
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -8298,6 +8314,13 @@ snapshots:
       ejs: 3.1.10
     transitivePeerDependencies:
       - supports-color
+
+  '@opc/core@file:../OPC-server/packages/core': {}
+
+  '@opc/protocol@file:../OPC-server/packages/protocol':
+    dependencies:
+      '@opc/core': file:../OPC-server/packages/core
+      zod: 4.4.3
 
   '@pkgjs/parseargs@0.11.0':
     optional: true

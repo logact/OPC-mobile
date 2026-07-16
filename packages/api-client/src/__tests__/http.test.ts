@@ -15,9 +15,10 @@ describe('createHttpClient', () => {
 
     createHttpClient({ baseURL: 'https://opc.example.com/', apiVersion: 'v1' });
 
+    // API_ROUTES 已包含 /api/v1 前缀，baseURL 只需服务器根地址
     expect(create).toHaveBeenCalledWith(
       expect.objectContaining({
-        baseURL: 'https://opc.example.com/api/v1',
+        baseURL: 'https://opc.example.com',
         timeout: 10000,
       }),
     );

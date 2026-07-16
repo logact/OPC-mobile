@@ -1,3 +1,4 @@
+import { API_ROUTES } from '@opc/protocol';
 import type { OpcHttpClient } from './http.js';
 import type {
   GetParticipantResponse,
@@ -8,8 +9,8 @@ import type {
 } from './types.js';
 
 const ROUTES = {
-  participants: '/participants',
-  participant: (id: string) => `/participants/${encodeURIComponent(id)}`,
+  participants: API_ROUTES.participants,
+  participant: API_ROUTES.participant,
 } as const;
 
 export function createParticipantsApi(client: OpcHttpClient) {

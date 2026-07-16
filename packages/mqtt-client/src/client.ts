@@ -1,5 +1,5 @@
+import { MQTT_TOPICS } from '@opc/protocol';
 import mqtt, { type MqttClient as MqttConnection, type IClientOptions } from 'mqtt';
-import { MQTT_TOPICS } from './topics.js';
 import type {
   MqttConnectionState,
   OpcMqttClient,

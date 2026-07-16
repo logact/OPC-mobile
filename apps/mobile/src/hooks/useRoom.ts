@@ -6,55 +6,45 @@ import type { UplinkPayload } from '@opc/mqtt-client';
 
 export function useRoom() {
   const { participantId, token, clientId, isLoggedIn } = useAuth();
-  const mqtt = useMqtt();
+  const { connect, disconnect, client, state } = useMqtt();
   const store = useRoomStore();
 
   useEffect(() => {
     if (isLoggedIn && participantId && token && clientId) {
-      mqtt.connect(participantId, token, clientId);
+      connect(participantId, token, clientId);
     } else {
-      mqtt.disconnect();
+      disconnect();
     }
-  }, [isLoggedIn, participantId, token, clientId, mqtt]);
+  }, [isLoggedIn, participantId, token, clientId, connect, disconnect]);
 
   useEffect(() => {
     if (store.currentRoomId) {
-      mqtt.client?.subscribeRoom(store.currentRoomId);
+      client?.subscribeRoom(store.currentRoomId);
     }
     return () => {
       if (store.currentRoomId) {
-        mqtt.client?.unsubscribeRoom(store.currentRoomId);
+        client?.unsubscribeRoom(store.currentRoomId);
       }
     };
-  }, [store.currentRoomId, mqtt.client]);
+  }, [store.currentRoomId, client]);
 
-  const loadRooms = useCallback(() => {
-    return store.loadRooms();
-  }, [store]);
-
-  const enterRoom = useCallback(
-    (roomId: string) => {
-      return store.enterRoom(roomId);
-    },
-    [store],
-  );
-
-  const leaveRoom = useCallback(() => {
-    store.leaveRoom();
-  }, [store]);
+  // zustand actions 是稳定引用，直接解构即可，无需 useCallback
+  const loadRooms = store.loadRooms;
+  const enterRoom = store.enterRoom;
+  const leaveRoom = store.leaveRoom;
 
   const sendText = useCallback(
     (roomId: string, text: string) => {
-      if (!participantId || !mqtt.client) return;
+      if (!participantId || !client) return;
 
       const payload: UplinkPayload = {
         from: participantId,
         content: { type: 'text', body: text },
         clientMessageId: `${participantId}-${Date.now()}`,
       };
-      mqtt.client.sendUplink(roomId, payload);
+      client.sendUplink(roomId, payload);
     },
-    [participantId, mqtt.client],
+    [participantId, client],
   );
 
   return {
@@ -64,7 +54,7 @@ export function useRoom() {
     isLoadingRooms: store.isLoadingRooms,
     isLoadingMessages: store.isLoadingMessages,
     error: store.error,
-    mqttState: mqtt.state,
+    mqttState: state,
     loadRooms,
     enterRoom,
     leaveRoom,

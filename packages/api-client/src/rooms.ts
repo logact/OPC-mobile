@@ -1,3 +1,4 @@
+import { API_ROUTES } from '@opc/protocol';
 import type { OpcHttpClient } from './http.js';
 import type {
   CreateRoomRequest,
@@ -10,9 +11,9 @@ import type {
 } from './types.js';
 
 const ROUTES = {
-  rooms: '/rooms',
-  room: (id: string) => `/rooms/${encodeURIComponent(id)}`,
-  roomHistory: (id: string) => `/rooms/${encodeURIComponent(id)}/history`,
+  rooms: API_ROUTES.rooms,
+  room: API_ROUTES.room,
+  roomHistory: API_ROUTES.roomHistory,
 } as const;
 
 export function createRoomsApi(client: OpcHttpClient) {
