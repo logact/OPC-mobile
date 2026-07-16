@@ -6,18 +6,21 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "postInstallCommand": "pnpm -C \"${EAS_BUILD_WORKINGDIR}\" --filter '@opc/api-client' --filter '@opc/mqtt-client' build"
     },
     "preview": {
       "distribution": "internal",
       "android": {
         "buildType": "apk"
-      }
+      },
+      "postInstallCommand": "pnpm -C \"${EAS_BUILD_WORKINGDIR}\" --filter '@opc/api-client' --filter '@opc/mqtt-client' build"
     },
     "production": {
       "android": {
         "buildType": "app-bundle"
-      }
+      },
+      "postInstallCommand": "pnpm -C \"${EAS_BUILD_WORKINGDIR}\" --filter '@opc/api-client' --filter '@opc/mqtt-client' build"
     }
   },
   "submit": {
